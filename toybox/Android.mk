@@ -57,8 +57,10 @@ LOCAL_SRC_FILES := \
     lib/help.c \
     lib/interestingtimes.c \
     lib/lib.c \
+    lib/linestack.c \
     lib/llist.c \
     lib/net.c \
+    lib/password.c \
     lib/portability.c \
     lib/xwrap.c \
     main.c \
@@ -90,15 +92,19 @@ LOCAL_SRC_FILES := \
     toys/other/clear.c \
     toys/other/dos2unix.c \
     toys/other/fallocate.c \
+	toys/other/flock.c \
     toys/other/free.c \
     toys/other/freeramdisk.c \
     toys/other/fsfreeze.c \
     toys/other/help.c \
+    toys/other/hwclock.c \
     toys/other/inotifyd.c \
     toys/other/insmod.c \
+    toys/other/ionice.c \
     toys/other/losetup.c \
     toys/other/lsattr.c \
     toys/other/lsmod.c \
+    toys/other/lspci.c \
     toys/other/lsusb.c \
     toys/other/makedevs.c \
     toys/other/mkswap.c \
@@ -110,8 +116,10 @@ LOCAL_SRC_FILES := \
     toys/other/pmap.c \
     toys/other/printenv.c \
     toys/other/pwdx.c \
+    toys/other/readahead.c \
     toys/other/readlink.c \
     toys/other/realpath.c \
+    toys/other/reset.c \
     toys/other/rev.c \
     toys/other/rmmod.c \
     toys/other/setsid.c \
@@ -123,18 +131,32 @@ LOCAL_SRC_FILES := \
     toys/other/taskset.c \
     toys/other/timeout.c \
     toys/other/truncate.c \
+    toys/other/uptime.c \
     toys/other/usleep.c \
     toys/other/vconfig.c \
     toys/other/vmstat.c \
     toys/other/which.c \
+    toys/other/xxd.c \
     toys/other/yes.c \
+    toys/pending/arp.c \
     toys/pending/dd.c \
+    toys/pending/diff.c \
     toys/pending/expr.c \
+    toys/pending/fdisk.c \
+    toys/pending/file.c \
+    toys/pending/ftpget.c \
+    toys/pending/host.c \
+    toys/pending/lsof.c \
     toys/pending/more.c \
+    toys/pending/resize.c \
     toys/pending/route.c \
     toys/pending/tar.c \
+    toys/pending/telnet.c \
+    toys/pending/test.c \
     toys/pending/tr.c \
     toys/pending/traceroute.c \
+    toys/pending/watch.c \
+    toys/pending/xzcat.c \
     toys/posix/basename.c \
     toys/posix/cal.c \
     toys/posix/cat.c \
@@ -170,6 +192,7 @@ LOCAL_SRC_FILES := \
     toys/posix/paste.c \
     toys/posix/patch.c \
     toys/posix/printf.c \
+    toys/posix/ps.c \
     toys/posix/pwd.c \
     toys/posix/renice.c \
     toys/posix/rm.c \
@@ -185,6 +208,7 @@ LOCAL_SRC_FILES := \
     toys/posix/touch.c \
     toys/posix/true.c \
     toys/posix/tty.c \
+    toys/posix/ulimit.c \
     toys/posix/uname.c \
     toys/posix/uniq.c \
     toys/posix/wc.c \
@@ -482,6 +506,15 @@ ALL_TOOLS += \
     setfattr
 endif
 endif
+
+LOCAL_CFLAGS := $(common_cflags)
+LOCAL_CLANG := true
+
+# This doesn't actually prevent us from dragging in libc++ at runtime
+# because libnetd_client.so is C++.
+LOCAL_CXX_STL := none
+
+LOCAL_C_INCLUDES += bionic/libc/dns/include
 
 # Install the symlinks.
 LOCAL_POST_INSTALL_CMD := $(hide) $(foreach t,$(ALL_TOOLS),ln -sf toybox $(TARGET_RECOVERY_ROOT_OUT)/sbin/$(t);)

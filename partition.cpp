@@ -1289,9 +1289,15 @@ bool TWPartition::Mount(bool Display_Error) {
 			}
 		} else {
 #endif
-			if (!Removable && Display_Error)
+			if (!Removable && Display_Error) {
+			    if(!strcmp(Mount_Point.c_str(),"/data") && !strcmp(Actual_Block_Device.c_str(),"/dev/block/dm-0")) {
+				if(mount("/dev/block/platform/hi_mci.0/by-name/userdata", Mount_Point.c_str(), "ext4", 0, NULL) == 0) {    
+   				    gui_msg(Msg(msg::kError, "fail_mount=Failed to mount '{1}' ({2})")(Mount_Point)("Mounted without encryption..."));
+				    return true;
+				}
+			    } else
 				gui_msg(Msg(msg::kError, "fail_mount=Failed to mount '{1}' ({2})")(Mount_Point)(strerror(errno)));
-			else
+			}else
 				LOGINFO("Unable to mount '%s'\n", Mount_Point.c_str());
 			LOGINFO("Actual block device: '%s', current file system: '%s'\n", Actual_Block_Device.c_str(), Current_File_System.c_str());
 			return false;
