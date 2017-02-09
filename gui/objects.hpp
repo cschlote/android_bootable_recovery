@@ -367,6 +367,11 @@ protected:
 	int twcmd(std::string arg);
 	int setbootslot(std::string arg);
 	int installapp(std::string arg);
+	int flashsupersu(std::string arg);
+	int usbhoston(std::string arg);
+	int usbhostoff(std::string arg);
+	int dump(std::string arg);
+	int restoredump(std::string arg);
 
 	int simulate;
 };

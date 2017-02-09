@@ -231,6 +231,11 @@ GUIAction::GUIAction(xml_node<>* node)
 		ADD_ACTION(twcmd);
 		ADD_ACTION(setbootslot);
 		ADD_ACTION(installapp);
+		ADD_ACTION(flashsupersu);
+		ADD_ACTION(usbhoston);
+		ADD_ACTION(usbhostoff);
+		ADD_ACTION(dump);
+		ADD_ACTION(restoredump);
 	}
 
 	// First, get the action
@@ -1757,6 +1762,53 @@ int GUIAction::twcmd(std::string arg)
 	else
 		OpenRecoveryScript::Run_CLI_Command(arg.c_str());
 	operation_end(0);
+	return 0;
+}
+
+int GUIAction::flashsupersu(std::string arg)
+{
+	int wipe_cache = 0;
+	int op_status = 0;
+	operation_start("Flash SuperSU");
+	op_status = flash_zip("/sbin/supersu.zip", &wipe_cache);
+	operation_end(op_status);
+	return 0;
+}
+
+int GUIAction::usbhoston(std::string arg)
+{
+	int op_status = 0;
+	operation_start("USB HOST ON");
+	op_status = system("echo hoston > /sys/devices/ff100000.hisi_usb/plugusb");
+	operation_end(op_status);
+	return 0;
+}
+
+int GUIAction::usbhostoff(std::string arg)
+{
+	int op_status = 0;
+	operation_start("USB HOST OFF");
+	op_status = system("echo hostoff > /sys/devices/ff100000.hisi_usb/plugusb");
+	operation_end(op_status);
+	return 0;
+}
+int GUIAction::dump(std::string arg)
+{
+	int wipe_cache = 0;
+	int op_status = 0;
+	operation_start("Dump");
+	op_status = flash_zip("/sbin/StockBackup_hi6250.zip", &wipe_cache);
+	operation_end(op_status);
+	return 0;
+}
+
+int GUIAction::restoredump(std::string arg)
+{
+	int wipe_cache = 0;
+	int op_status = 0;
+	operation_start("Restore Dump");
+	op_status = flash_zip("/sbin/RestoreStockBackup_hi6250.zip", &wipe_cache);
+	operation_end(op_status);
 	return 0;
 }
 

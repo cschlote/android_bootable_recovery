@@ -3505,6 +3505,12 @@
 					<action function="page">confirm_action</action>
 				</actions>
 			</button>
+                        
+			<button style="main_button">	
+				<placement x="%center_x%" y="%row19_y%"/>
+				<text>Extras</text>
+				<action function="page">meticulus</action>
+			</button>
 
 			<action>
 				<touch key="home"/>
@@ -3514,6 +3520,103 @@
 			<action>
 				<touch key="back"/>
 				<action function="page">main</action>
+			</action>
+		</page>
+
+		<page name="meticulus">
+			<template name="page"/>
+
+			<text style="text_l">
+				<placement x="%col1_x_header%" y="%row3_header_y%"/>
+				<text>{@advanced_hdr=Advanced}</text>
+			</text>
+
+			<text style="text_m">
+				<placement x="%col1_x_header%" y="%row4_header_y%"/>
+				<text>Meticulus Development: Extras</text>
+			</text>
+
+			<button style="main_button">
+				<placement x="%indent%" y="%row2a_y%"/>
+				<text>Super SU</text>
+				<actions>
+					<action function="set">tw_back=meticulus</action>
+					<action function="set">tw_action=flashsupersu</action>
+					<action function="set">tw_has_action2=0</action>
+					<action function="set">tw_action_text1=Flashing SuperSu</action>
+					<action function="set">tw_action_text2=</action>
+					<action function="set">tw_complete_text1=SuperSu Flashed!</action>
+					<action function="set">tw_slider_text=Flash SuperSU?</action>
+					<action function="page">confirm_action</action>	
+				</actions>
+				<action function="flash"/>
+			</button>
+
+                        <button style="main_button">
+                                <placement x="%indent%" y="%row8_y%"/>
+                                <text>USB Host: ON</text>
+                                <actions>
+                                        <action function="set">tw_back=meticulus</action>
+                                        <action function="set">tw_action=usbhoston</action>
+                                        <action function="set">tw_has_action2=0</action>
+                                        <action function="set">tw_action_text1=Activating USB HOST</action>
+                                        <action function="set">tw_action_text2=</action>
+                                        <action function="set">tw_complete_text1=USB HOST ON</action>
+                                        <action function="page">action_page</action>
+                                </actions>
+                        </button>
+
+                        <button style="main_button">
+                                <placement x="%center_x%" y="%row8_y%"/>
+                                <text>USB Host: OFF</text>
+                                <actions>
+                                        <action function="set">tw_back=meticulus</action>
+                                        <action function="set">tw_action=usbhostoff</action>
+                                        <action function="set">tw_has_action2=0</action>
+                                        <action function="set">tw_action_text1=Activating USB HOST</action>
+                                        <action function="set">tw_action_text2=</action>
+                                        <action function="set">tw_complete_text1=USB HOST OFF</action>
+                                        <action function="page">action_page</action>
+                                </actions>
+                        </button>
+
+			<button style="main_button">
+				<placement x="%indent%" y="%row13a_y%"/>
+				<text>Dump</text>
+				<actions>
+					<action function="set">tw_back=meticulus</action>
+					<action function="set">tw_action=dump</action>
+					<action function="set">tw_has_action2=0</action>
+					<action function="set">tw_action_text1=Dumping system and boot</action>
+					<action function="set">tw_action_text2=</action>
+					<action function="set">tw_complete_text1=Dump complete!</action>
+					<action function="set">tw_slider_text=Dump system and boot?</action>
+					<action function="page">confirm_action</action>	
+				</actions>
+			</button>
+			<button style="main_button">
+				<placement x="%center_x%" y="%row13a_y%"/>
+				<text>Restore Dump</text>
+				<actions>
+					<action function="set">tw_back=meticulus</action>
+					<action function="set">tw_action=restoredump</action>
+					<action function="set">tw_has_action2=0</action>
+					<action function="set">tw_action_text1=Restoring system and boot</action>
+					<action function="set">tw_action_text2=</action>
+					<action function="set">tw_complete_text1=Restore dump complete</action>
+					<action function="set">tw_slider_text=Restore dump?</action>
+					<action function="page">confirm_action</action>	
+				</actions>
+			</button>
+
+			<action>
+				<touch key="home"/>
+				<action function="page">main</action>
+			</action>
+
+			<action>
+				<touch key="back"/>
+				<action function="page">advanced</action>
 			</action>
 		</page>
 
